@@ -6,7 +6,7 @@ interface CalendarBodyProps {
 
 const CalendarBody = ({ currentDate }: CalendarBodyProps) => {
   return (
-    <div className="flex flex-col h-[54vh] w-full text-[0.75rem]">
+    <div className="flex flex-col  w-full text-[0.75rem]">
       <div className="flex w-full h-[4vh] items-center">
         {dayOfTheWeek.map((item, index) => {
           return (
@@ -17,13 +17,13 @@ const CalendarBody = ({ currentDate }: CalendarBodyProps) => {
         })}
       </div>
       {/** 일자 */}
-      <div className="grid grid-cols-7">
+      <div className="grid grid-cols-7 ">
         {generateDate({
           month: currentDate.getMonth(),
           year: currentDate.getFullYear(),
         }).map(({ date, currentMonth, today }, index) => {
           return (
-            <div key={date.getDate() + '_' + index} className="h-[10vh] flex justify-center">
+            <div key={date.getDate() + '_' + index} className=" h-[10vh] flex justify-center">
               <div
                 className={`${currentMonth ? (today ? 'text-white bg-black rounded-full ' : 'text-black') : 'text-gray-100'} 
                 text-center w-[24px] h-[24px] flex items-center justify-center`}

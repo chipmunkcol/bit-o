@@ -8,7 +8,7 @@ interface CalendarHeaderProps {
 
 const CalendarHeader = ({ currentDate, setCurrentDate }: CalendarHeaderProps) => {
   return (
-    <div className="flex justify-center items-center py-[0.75rem] gap-[1.25rem]">
+    <div className="flex justify-center items-center py-[0.75rem] sm:gap-[1.25rem] gap-[1.1rem]">
       <Image
         alt="couble_left"
         src="/images/icon/doubleArrow.png"

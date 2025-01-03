@@ -10,8 +10,8 @@ import AddEventLocation from './AddEventLocation'
 export default function AddEventPage() {
   return (
     <>
-      <BaseHeader title={'이벤트 추가'} />
-      <div className="flex flex-col px-[1.5rem] h-[100vh] overflow-hidden">
+      <BaseHeader title={'이벤트 추가'} backIcon />
+      <div className="flex flex-col px-[1.5rem] h-[100vh] overflow-hidden py-[1.5rem]">
         <div className="flex flex-col flex-grow overflow-y-auto gap-[3rem] ">
           <AddEventTitle placeholder={'Title'} />
           <AddEventTime />

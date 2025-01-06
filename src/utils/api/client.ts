@@ -1,0 +1,55 @@
+interface ApiError extends Error {
+  statusCode?: number
+  code?: string
+}
+
+interface RequestConfig extends RequestInit {
+  params?: Record<string, string>
+}
+/**
+ * API 요청을 위한 기본 클라이언트
+ *
+ * @throws {ApiError} API 요청 실패 시 에러
+ */
+async function client<T>(
+  endpoint: string,
+  { params, ...customConfig }: RequestConfig = {},
+): Promise<T> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
+
+  const config: RequestInit = {
+    ...customConfig,
+    headers,
+  }
+
+  const queryString = params ? `?${new URLSearchParams(params)}` : ''
+  const url = `${apiUrl}${endpoint}${queryString}`
+
+  try {
+    const response = await fetch(url, config)
+
+    // 응답 데이터 처리
+    const data = await response.json()
+
+    // 응답이 실패했을 경우
+    if (!response.ok) {
+      const error = new Error(data.message || '요청에 실패했습니다.') as ApiError
+      error.statusCode = response.status
+      error.code = data.code
+      throw error
+    }
+
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('알 수 없는 오류가 발생했습니다.')
+  }
+}
+
+export { client }

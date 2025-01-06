@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Layout from './(pages)/layout/Layout'
+import Providers from './providers'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -33,7 +34,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Layout>{children}</Layout>
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   )

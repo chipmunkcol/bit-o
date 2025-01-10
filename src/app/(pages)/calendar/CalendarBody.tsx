@@ -1,6 +1,6 @@
 import useAddEventStore from '@/store/addEventStore'
 import { dayOfTheWeek, generateDate } from '@/utils/calendar'
-import { addDays, isEqual, isWithinInterval } from 'date-fns'
+import { isEqual, isWithinInterval, startOfDay } from 'date-fns'
 
 const CalendarBody = () => {
   const { selectedDate, setSelectedDate, plans, currentDate } = useAddEventStore()
@@ -63,10 +63,12 @@ const CalendarBody = () => {
               <ul className="absolute inset-0 top-[1.5rem]">
                 {plans.length > 0 &&
                   plans.map((plan) => {
+                    //현재 날짜의 시작 시간 (00:00:00)으로 설정
+                    //날짜만 비교할 수 있게
                     if (
                       isWithinInterval(date, {
-                        start: addDays(plan.startDateTime, -1),
-                        end: plan.endDateTime,
+                        start: startOfDay(plan.startDateTime),
+                        end: startOfDay(plan.endDateTime),
                       })
                     ) {
                       return (

@@ -21,7 +21,7 @@ async function client<T>(
    * 로그인 만들어지면 고치기
    */
   const accessToken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwamh3b3JrOTdAZ21haWwuY29tIiwiaWF0IjoxNzM2NDgyNDkxLCJleHAiOjE3MzY0OTMyOTEsInN1YiI6ImZha2VFbWFpbEBmYWtlRG9tYWluLmNvbSIsImlkIjowfQ.VQQaemQBbhMxmSAsXYGI8j_N9wwp_i3gQ-E4MoaF2jA'
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwamh3b3JrOTdAZ21haWwuY29tIiwiaWF0IjoxNzM2NDkzNDA0LCJleHAiOjE3MzY1MDQyMDQsInN1YiI6ImZha2VFbWFpbEBmYWtlRG9tYWluLmNvbSIsImlkIjowfQ.7BV_LCfk23TbavzGU3hlXeDSwzROhsl4KKf7zOecQEA'
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',

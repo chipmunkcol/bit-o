@@ -6,8 +6,13 @@ import AddEventTitle from './AddEventTitle'
 import AddEventTime from './AddEventTime'
 import AddEventNote from './AddEventNote'
 import AddEventLocation from './AddEventLocation'
+import { useParams } from 'next/navigation'
 
 export default function AddEventPage() {
+  const params = useParams()
+  const id = params.id
+  console.log(id)
+
   return (
     <>
       <BaseHeader title={'이벤트 추가'} backIcon />

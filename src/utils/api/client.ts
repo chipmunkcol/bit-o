@@ -16,8 +16,12 @@ async function client<T>(
   { params, ...customConfig }: RequestConfig = {},
 ): Promise<T> {
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT
+
+  /***
+   * 로그인 만들어지면 고치기
+   */
   const accessToken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwamh3b3JrOTdAZ21haWwuY29tIiwiaWF0IjoxNzM2MjI3NDc3LCJleHAiOjE3MzYyMzgyNzcsInN1YiI6ImZha2VFbWFpbEBmYWtlRG9tYWluLmNvbSIsImlkIjowfQ.2DcnoRIZ-Wcx43LLknyCN3VLLiUnFMc5d41PZDZloqU'
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwamh3b3JrOTdAZ21haWwuY29tIiwiaWF0IjoxNzM2NDgyNDkxLCJleHAiOjE3MzY0OTMyOTEsInN1YiI6ImZha2VFbWFpbEBmYWtlRG9tYWluLmNvbSIsImlkIjowfQ.VQQaemQBbhMxmSAsXYGI8j_N9wwp_i3gQ-E4MoaF2jA'
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',

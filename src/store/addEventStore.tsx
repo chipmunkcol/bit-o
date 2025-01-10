@@ -8,6 +8,8 @@ interface AddEventStore {
   selectedDate: Date | null
   plans: CalendarListReponse[]
   selectedDatePlans: CalendarListReponse[]
+  currentDate: Date
+  setCurrentDate: (today: Date) => void
   setTitle: (title: string) => void
   setNote: (note: string) => void
   setSelectedDate: (date: Date) => void
@@ -21,6 +23,8 @@ const useAddEventStore = create<AddEventStore>((set) => ({
   selectedDate: null,
   plans: [],
   selectedDatePlans: [],
+  currentDate: new Date(),
+  setCurrentDate: (currentDate: Date) => set({ currentDate }),
   setTitle: (title: string) => set({ title }),
   setNote: (note: string) => set({ note }),
   setSelectedDate: (selectedDate: Date) =>

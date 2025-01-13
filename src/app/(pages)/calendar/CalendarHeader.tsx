@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import { addMonths, addYears } from 'date-fns'
-import useAddEventStore from '@/store/addEventStore'
+import useScheduleStore from '@/store/scheduleStore'
 
 const CalendarHeader = () => {
-  const { currentDate, setCurrentDate } = useAddEventStore()
+  const { currentDate, setCurrentDate } = useScheduleStore()
   return (
     <div className="flex justify-center items-center py-[0.75rem] sm:gap-[1.25rem] gap-[1.1rem]">
       <Image

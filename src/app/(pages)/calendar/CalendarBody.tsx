@@ -1,9 +1,9 @@
-import useAddEventStore from '@/store/addEventStore'
+import useScheduleStore from '@/store/scheduleStore'
 import { dayOfTheWeek, generateDate } from '@/utils/calendar'
 import { isEqual, isWithinInterval, startOfDay } from 'date-fns'
 
 const CalendarBody = () => {
-  const { selectedDate, setSelectedDate, plans, currentDate } = useAddEventStore()
+  const { selectedDate, setSelectedDate, plans, currentDate } = useScheduleStore()
 
   const getDateStyle = ({ date, today }: { date: Date | null; today: boolean | undefined }) => {
     if (!date) return

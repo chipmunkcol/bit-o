@@ -1,4 +1,4 @@
-export interface CalendarListReponse {
+export interface ScheduleResponse {
   id: number
   nickName: string
   title: string

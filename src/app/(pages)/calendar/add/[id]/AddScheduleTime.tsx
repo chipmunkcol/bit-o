@@ -1,6 +1,8 @@
+import useScheduleStore from '@/store/scheduleStore'
 import Image from 'next/image'
 
 const AddEventTime = () => {
+  const { date } = useScheduleStore()
   return (
     <div className="flex gap-[1.75rem]">
       <div>

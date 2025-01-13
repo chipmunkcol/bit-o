@@ -4,14 +4,14 @@ import { useEffect } from 'react'
 import CalendarHeader from './CalendarHeader'
 import CalendarBody from './CalendarBody'
 import { useQuery } from '@tanstack/react-query'
-import { CalendarListReponse } from '@/features/calendar/types'
+import { ScheduleResponse } from '@/features/calendar/types'
 import { getCalendarList } from '@/features/calendar/api'
-import useAddEventStore from '@/store/addEventStore'
+import useScheduleStore from '@/store/scheduleStore'
 import LoadingSpinner from '@/shared/ui/LoadingSpinner'
 import CalendarPalns from './CalendarPlans'
 
 export default function CalendarPage() {
-  const { setPlans, setCurrentDate, currentDate } = useAddEventStore()
+  const { setPlans, setCurrentDate, currentDate } = useScheduleStore()
 
   /*** 로그인 만들어지면 고치기 */
   const userId = 1
@@ -20,7 +20,7 @@ export default function CalendarPage() {
     isError,
     data: plandata,
     error,
-  } = useQuery<CalendarListReponse>({
+  } = useQuery<ScheduleResponse[]>({
     queryKey: ['calendarlist', userId],
     queryFn: () => getCalendarList(userId),
   })

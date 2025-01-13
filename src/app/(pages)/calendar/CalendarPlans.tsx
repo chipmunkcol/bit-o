@@ -1,11 +1,11 @@
-import useAddEventStore from '@/store/addEventStore'
+import useScheduleStore from '@/store/scheduleStore'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 const CalendarPalns = () => {
   const router = useRouter()
-  const { selectedDatePlans, selectedDate, currentDate } = useAddEventStore()
+  const { selectedDatePlans, selectedDate, currentDate } = useScheduleStore()
 
   const handleEventClick = (planId: number | null) => {
     //이벤트 수정

@@ -41,6 +41,7 @@ export default function AddEventPage() {
     return () => {
       setTitle(null)
       setNote(null)
+      setDate(null)
     }
   }, [scheduleDetailData, setTitle, setNote, setDate, scheduleId])
 

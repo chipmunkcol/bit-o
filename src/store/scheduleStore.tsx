@@ -10,7 +10,7 @@ interface useScheduleStore {
   plans: ScheduleResponse[]
   selectedDatePlans: ScheduleResponse[]
   currentDate: Date
-  setDate: (date: { startDateTime: Date; endDateTime: Date }) => void
+  setDate: (date: { startDateTime: Date; endDateTime: Date } | null) => void
   setCurrentDate: (today: Date) => void
   setTitle: (title: string | null) => void
   setNote: (note: string | null) => void
@@ -27,7 +27,7 @@ const useScheduleStore = create<useScheduleStore>((set) => ({
   plans: [],
   selectedDatePlans: [],
   currentDate: new Date(),
-  setDate: (date: { startDateTime: Date; endDateTime: Date }) => set({ date }),
+  setDate: (date: { startDateTime: Date; endDateTime: Date } | null) => set({ date }),
   setCurrentDate: (currentDate: Date) => set({ currentDate }),
   setTitle: (title: string | null) => set({ title }),
   setNote: (note: string | null) => set({ note }),

@@ -7,7 +7,7 @@ interface useScheduleStore {
   note: string | null
   date: { startDateTime: Date; endDateTime: Date } | null
   selectedDate: Date | null
-  plans: ScheduleResponse[]
+  schedules: ScheduleResponse[]
   selectedDatePlans: ScheduleResponse[]
   currentDate: Date
   setDate: (date: { startDateTime: Date; endDateTime: Date } | null) => void
@@ -16,7 +16,14 @@ interface useScheduleStore {
   setNote: (note: string | null) => void
   setSelectedDate: (date: Date) => void
   setSelectedDatePlans: (payload: ScheduleResponse[]) => void
-  setPlans: (payload: ScheduleResponse[]) => void
+  setSchedules: (payload: ScheduleResponse[]) => void
+  updateScheduleList: ({
+    scheduleId,
+    scheduleDetail,
+  }: {
+    scheduleId: number
+    scheduleDetail: ScheduleResponse
+  }) => void
 }
 
 const useScheduleStore = create<useScheduleStore>((set) => ({
@@ -24,7 +31,7 @@ const useScheduleStore = create<useScheduleStore>((set) => ({
   note: null,
   date: null,
   selectedDate: null,
-  plans: [],
+  schedules: [],
   selectedDatePlans: [],
   currentDate: new Date(),
   setDate: (date: { startDateTime: Date; endDateTime: Date } | null) => set({ date }),
@@ -33,20 +40,34 @@ const useScheduleStore = create<useScheduleStore>((set) => ({
   setNote: (note: string | null) => set({ note }),
   setSelectedDate: (selectedDate: Date) =>
     set((state) => {
+      console.log(state.schedules)
       //선택된 날짜의 plan filter
-      if (state.plans.length > 0) {
-        const filteredPlans = state.plans.filter((plan) =>
+      if (state.schedules.length > 0) {
+        const filteredPlans = state.schedules.filter((schedules) =>
           isWithinInterval(selectedDate, {
-            start: addDays(plan.startDateTime, -1),
-            end: plan.endDateTime,
+            start: addDays(schedules.startDateTime, -1),
+            end: schedules.endDateTime,
           }),
         )
         state.selectedDatePlans = filteredPlans
       }
       return { selectedDate }
     }),
-  setPlans: (plans: ScheduleResponse[]) => set({ plans }),
+  setSchedules: (schedules: ScheduleResponse[]) => set({ schedules }),
   setSelectedDatePlans: (selectedDatePlans: ScheduleResponse[]) => set({ selectedDatePlans }),
+  updateScheduleList: ({
+    scheduleId,
+    scheduleDetail,
+  }: {
+    scheduleId: number
+    scheduleDetail: ScheduleResponse
+  }) =>
+    set((state) => {
+      const updatedList = state.schedules.map((schedule) =>
+        schedule.id === scheduleId ? scheduleDetail : schedule,
+      )
+      return { schedules: updatedList }
+    }),
 }))
 
 export default useScheduleStore

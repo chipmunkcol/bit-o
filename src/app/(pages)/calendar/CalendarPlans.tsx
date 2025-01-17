@@ -3,7 +3,7 @@ import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-const CalendarPalns = () => {
+const CalendarPlans = () => {
   const router = useRouter()
   const { selectedDatePlans, selectedDate, currentDate } = useScheduleStore()
 
@@ -59,4 +59,4 @@ const CalendarPalns = () => {
   )
 }
 
-export default CalendarPalns
+export default CalendarPlans

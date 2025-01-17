@@ -8,10 +8,10 @@ import { ScheduleResponse } from '@/features/calendar/types'
 import { getCalendarList } from '@/features/calendar/api'
 import useScheduleStore from '@/store/scheduleStore'
 import LoadingSpinner from '@/shared/ui/LoadingSpinner'
-import CalendarPalns from './CalendarPlans'
+import CalendarPlans from './CalendarPlans'
 
 export default function CalendarPage() {
-  const { setPlans, setCurrentDate, currentDate } = useScheduleStore()
+  const { setSelectedDate, setSchedules, setCurrentDate, currentDate } = useScheduleStore()
 
   /*** 로그인 만들어지면 고치기 */
   const userId = 1
@@ -27,9 +27,10 @@ export default function CalendarPage() {
 
   useEffect(() => {
     if (plandata && Array.isArray(plandata)) {
-      setPlans(plandata)
+      setSchedules(plandata)
+      // setSelectedDate(new Date())
     }
-  }, [plandata, setPlans])
+  }, [plandata, setSchedules, setSelectedDate])
 
   useEffect(() => {
     //달&월을 위한 일자 - 오늘 날짜
@@ -44,7 +45,7 @@ export default function CalendarPage() {
       <div className="cursor-pointer px-[1.5rem] py-[2.1rem] flex flex-col gap-[1.5rem]">
         <CalendarHeader />
         <CalendarBody />
-        <CalendarPalns />
+        <CalendarPlans />
       </div>
     )
   )

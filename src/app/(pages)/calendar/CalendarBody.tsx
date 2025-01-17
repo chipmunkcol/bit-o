@@ -3,7 +3,7 @@ import { dayOfTheWeek, generateDate } from '@/utils/calendar'
 import { isEqual, isWithinInterval, startOfDay } from 'date-fns'
 
 const CalendarBody = () => {
-  const { selectedDate, setSelectedDate, plans, currentDate } = useScheduleStore()
+  const { selectedDate, setSelectedDate, schedules, currentDate } = useScheduleStore()
 
   const getDateStyle = ({ date, today }: { date: Date | null; today: boolean | undefined }) => {
     if (!date) return
@@ -61,8 +61,8 @@ const CalendarBody = () => {
                 <span className="cursor-pointer">{date.getDate()}</span>
               </div>
               <ul className="absolute inset-0 top-[1.5rem]">
-                {plans.length > 0 &&
-                  plans.map((plan) => {
+                {schedules.length > 0 &&
+                  schedules.map((plan) => {
                     //현재 날짜의 시작 시간 (00:00:00)으로 설정
                     //날짜만 비교할 수 있게
                     if (

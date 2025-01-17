@@ -7,10 +7,10 @@ export default function StartPage() {
   const router = useRouter()
 
   const handleCreateCoupleButtonClick = () => {
-    router.push('/start/create-couple')
+    router.push('/connect/create-couple')
   }
   const handleInsertCodeButtonClick = () => {
-    router.push('/start/insert-code')
+    router.push('/connect/insert-code')
   }
   return (
     <div className="flex flex-col justify-center items-center h-screen start">

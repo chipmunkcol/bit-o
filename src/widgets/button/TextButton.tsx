@@ -1,12 +1,12 @@
 import React, { forwardRef, memo } from 'react'
 
-interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface TextButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string
   className?: string
 }
 
-const BaseButton = memo(
-  forwardRef<HTMLButtonElement, BaseButtonProps>(
+const TextButton = memo(
+  forwardRef<HTMLButtonElement, TextButtonProps>(
     ({ type = 'button', title, className, ...props }, ref) => {
       return (
         <button
@@ -22,4 +22,4 @@ const BaseButton = memo(
   ),
 )
 
-export default BaseButton
+export default TextButton

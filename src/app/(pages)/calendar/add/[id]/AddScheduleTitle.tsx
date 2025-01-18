@@ -1,10 +1,10 @@
-import useAddEventStore from '@/store/addEventStore'
+import useScheduleStore from '@/store/scheduleStore'
 
 interface AddEventTitleProps {
   placeholder: string
 }
 const AddEventTitle = ({ placeholder }: AddEventTitleProps) => {
-  const { title, setTitle } = useAddEventStore()
+  const { title, setTitle } = useScheduleStore()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target

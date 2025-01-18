@@ -1,6 +1,6 @@
 import { forwardRef, memo } from 'react'
 
-interface BaseButtonProps {
+interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset'
   title: string
   disabled?: boolean

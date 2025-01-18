@@ -1,8 +1,8 @@
-import useAddEventStore from '@/store/addEventStore'
+import useScheduleStore from '@/store/scheduleStore'
 import Image from 'next/image'
 
 const AddEventNote = () => {
-  const { note, setNote } = useAddEventStore()
+  const { note, setNote } = useScheduleStore()
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target

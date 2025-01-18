@@ -1,56 +1,51 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
-import { format } from 'date-fns'
+import { useEffect } from 'react'
 import CalendarHeader from './CalendarHeader'
 import CalendarBody from './CalendarBody'
-import { useRouter } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
+import { ScheduleResponse } from '@/features/calendar/types'
+import { getCalendarList } from '@/features/calendar/api'
+import useScheduleStore from '@/store/scheduleStore'
+import LoadingSpinner from '@/shared/ui/LoadingSpinner'
+import CalendarPlans from './CalendarPlans'
 
 export default function CalendarPage() {
-  const router = useRouter()
-  const [currentDate, setCurrentDate] = useState<Date>()
-  const [today, setToday] = useState<Date>()
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const { setSelectedDate, setSchedules, setCurrentDate, currentDate } = useScheduleStore()
+
+  /*** 로그인 만들어지면 고치기 */
+  const userId = 1
+  const {
+    isLoading,
+    isError,
+    data: plandata,
+    error,
+  } = useQuery<ScheduleResponse[]>({
+    queryKey: ['calendarlist', userId],
+    queryFn: () => getCalendarList(userId),
+  })
 
   useEffect(() => {
-    //달&월을 위한 일자
-    setCurrentDate(new Date())
-    //오늘
-    setToday(new Date())
-    //클릭 일자
-  }, [])
+    if (plandata && Array.isArray(plandata)) {
+      setSchedules(plandata)
+      // setSelectedDate(new Date())
+    }
+  }, [plandata, setSchedules, setSelectedDate])
 
-  const handleEventClick = () => {
-    router.push('/calendar/add')
-  }
+  useEffect(() => {
+    //달&월을 위한 일자 - 오늘 날짜
+    setCurrentDate(new Date())
+  }, [setCurrentDate])
+
+  if (isLoading) return <LoadingSpinner />
+  if (isError) alert(error)
 
   return (
-    currentDate &&
-    today && (
+    currentDate && (
       <div className="cursor-pointer px-[1.5rem] py-[2.1rem] flex flex-col gap-[1.5rem]">
-        <CalendarHeader currentDate={currentDate} setCurrentDate={setCurrentDate} />
-        <CalendarBody
-          currentDate={currentDate}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-        />
-        <div className="text-[1.13rem] font-semibold">{format(today, 'yyyy년 MM년 dd일')}</div>
-        <div className="flex flex-col">
-          <div
-            className="h-[2.7rem] bg-gray-50 rounded-[8px] flex items-center py-[6px] px-[12px] gap-[8px]"
-            onClick={handleEventClick}
-          >
-            <Image
-              alt="couble_left"
-              src="/images/icon/plus.png"
-              width={24}
-              height={24}
-              className="rotate-180"
-            />
-            <span>New Event</span>
-          </div>
-        </div>
+        <CalendarHeader />
+        <CalendarBody />
+        <CalendarPlans />
       </div>
     )
   )

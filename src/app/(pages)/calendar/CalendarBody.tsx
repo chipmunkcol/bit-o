@@ -1,22 +1,27 @@
+import useScheduleStore from '@/store/scheduleStore'
 import { dayOfTheWeek, generateDate } from '@/utils/calendar'
-import { isEqual } from 'date-fns'
+import { isEqual, isWithinInterval, startOfDay } from 'date-fns'
 
-interface CalendarBodyProps {
-  currentDate: Date
-  selectedDate: Date | null
-  setSelectedDate: (date: Date) => void
-}
+const CalendarBody = () => {
+  const { selectedDate, setSelectedDate, schedules, currentDate } = useScheduleStore()
 
-const CalendarBody = ({ currentDate, selectedDate, setSelectedDate }: CalendarBodyProps) => {
   const getDateStyle = ({ date, today }: { date: Date | null; today: boolean | undefined }) => {
     if (!date) return
 
     /** 오늘날짜 일때 */
     if (today) {
-      if (selectedDate && isEqual(date, selectedDate)) {
-        return 'text-white bg-black rounded-full' // 오늘날짜 == 클릭된 날짜
+      //선택된 날짜가 있을때
+      if (selectedDate) {
+        if (selectedDate && isEqual(date, selectedDate)) {
+          return 'text-white bg-black rounded-full' // 오늘날짜 == 클릭된 날짜
+        }
+        return 'text-white bg-gray-100 rounded-full' //오늘날짜 !== 클릭된 날짜
+      } else {
+        if (today) {
+          return 'text-white bg-black rounded-full' //오늘 날짜
+        }
+        return 'text-white bg-gray-100 rounded-full' //오늘이 아닌날짜
       }
-      return 'text-white bg-gray-100 rounded-full' //오늘날짜 !== 클릭된 날짜
 
       /** 오늘날짜가 아닐때*/
     } else if (selectedDate && isEqual(date, selectedDate)) {
@@ -44,7 +49,10 @@ const CalendarBody = ({ currentDate, selectedDate, setSelectedDate }: CalendarBo
           year: currentDate.getFullYear(),
         }).map(({ date, currentMonth, today }, index) => {
           return (
-            <div key={date.getDate() + '_' + index} className=" h-[10vh] flex justify-center ">
+            <div
+              key={date.getDate() + '_' + index}
+              className=" h-[10vh] flex justify-center relative"
+            >
               <div
                 className={`${currentMonth ? getDateStyle({ date, today }) : 'text-gray-100'} 
                 text-center w-[24px] h-[24px] flex items-center justify-center`}
@@ -52,6 +60,29 @@ const CalendarBody = ({ currentDate, selectedDate, setSelectedDate }: CalendarBo
               >
                 <span className="cursor-pointer">{date.getDate()}</span>
               </div>
+              <ul className="absolute inset-0 top-[1.5rem]">
+                {schedules.length > 0 &&
+                  schedules.map((plan) => {
+                    //현재 날짜의 시작 시간 (00:00:00)으로 설정
+                    //날짜만 비교할 수 있게
+                    if (
+                      isWithinInterval(date, {
+                        start: startOfDay(plan.startDateTime),
+                        end: startOfDay(plan.endDateTime),
+                      })
+                    ) {
+                      return (
+                        <li
+                          key={plan.id}
+                          className={`bg-pink text-[0.5rem] text-ellipsis overflow-hidden px-[0.5rem] mt-1`}
+                        >
+                          {plan.title}
+                        </li>
+                      )
+                    }
+                    return null
+                  })}
+              </ul>
             </div>
           )
         })}

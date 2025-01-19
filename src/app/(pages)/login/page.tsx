@@ -21,15 +21,12 @@ export default function Page() {
   }
 
   return (
-    <div>
-      <div
-        className=" flex flex-col justify-center items-center gap-10 "
-        style={{ height: '100vh' }}
-      >
-        <div className="">
+    <div className="h-full">
+      <div className="h-full flex flex-col justify-center items-center gap-10 ">
+        <div>
           <Image width={126} height={44} src={'/images/logo/BitO.svg'} alt="logo" />
         </div>
-        <div className="text-center" style={{ fontSize: '21px' }}>
+        <div className="text-center text-[21px]">
           <div>간편하게 로그인하고</div>
           <div>다양한 서비스를 이용해보세요.</div>
         </div>
@@ -47,9 +44,7 @@ export default function Page() {
           />
         </div>
         <div>
-          <div className="underline text-sm" style={{ color: '#787878' }}>
-            다른 이메일로 시작하기
-          </div>
+          <div className="underline text-sm text-gray-300">다른 이메일로 시작하기</div>
         </div>
       </div>
     </div>

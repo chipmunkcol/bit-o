@@ -1,6 +1,8 @@
 'use client'
 
 import TextButton from '@/widgets/button/TextButton'
+import ProgressBar from '@/widgets/status/ProgressBar'
+import Image from 'next/image'
 import { useState } from 'react'
 
 type CoupleConnectType = 'create' | 'code'
@@ -43,11 +45,19 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
 
   return (
     <div className="flex flex-col items-center px-16 pt-32 h-full">
-      <img className="h-16" src={CONNECT_STEP_IMAGE[currentStep]} alt={currentStep} />
-      <div className="mt-8">{currentPage}</div>
-      <p className="mt-12 text-center whitespace-pre-wrap">
-        {CONNECT_STEP_INSTRUCTION[currentStep]}
-      </p>
+      <div className="h-16">
+        <Image
+          src={CONNECT_STEP_IMAGE[currentStep]}
+          alt={`step-${currentStep}`}
+          width={0}
+          height={0}
+          style={{ width: 'auto', height: '100%' }}
+        />
+      </div>
+      <div className="my-10 w-40">
+        <ProgressBar currentStep={currentPage} totalSteps={steps.length} />
+      </div>
+      <p className="text-center whitespace-pre-wrap">{CONNECT_STEP_INSTRUCTION[currentStep]}</p>
       <div className="mt-12 self-end">
         <TextButton title="다음으로" className="text-brown" onClick={() => goToNextStep()} />
       </div>

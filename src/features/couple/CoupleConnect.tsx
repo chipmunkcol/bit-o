@@ -52,6 +52,7 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
     setIsForward(true)
     setCurrentPage((prev) => prev + 1)
   }
+
   const goToPrevStep = () => {
     if (currentPage === 0) {
       router.back()
@@ -60,12 +61,24 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
     setIsForward(false)
     setCurrentPage((prev) => prev - 1)
   }
+
   const handleDateChange = (date: Date | null) => {
     if (date) setInputData((prev) => ({ ...prev, date: format(date, 'yyyy/MM/dd') }))
     else
       setInputData((prev) => {
-        delete prev.date
-        return prev
+        const newData = { ...prev }
+        delete newData.date
+        return newData
+      })
+  }
+
+  const handleNicknameChange = (nickname: string) => {
+    if (nickname) setInputData((prev) => ({ ...prev, nickname }))
+    else
+      setInputData((prev) => {
+        const newData = { ...prev }
+        delete newData.nickname
+        return newData
       })
   }
 
@@ -102,6 +115,14 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
               className="text-4xl"
               date={inputData.date ? new Date(inputData.date) : null}
               setDate={(date: Date | null) => handleDateChange(date)}
+            />
+          )}
+          {currentStep === 'nickname' && (
+            <input
+              type="text"
+              className="bg-gray-50 p-2 rounded-md focus:ring-2 focus:ring-brown w-72 caret-brown focus:outline-none"
+              value={inputData.nickname || ''}
+              onChange={(e) => handleNicknameChange(e.target.value)}
             />
           )}
         </div>

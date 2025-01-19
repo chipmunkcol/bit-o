@@ -1,7 +1,9 @@
 'use client'
 
+import DateButton from '@/widgets/button/DateButton'
 import TextButton from '@/widgets/button/TextButton'
 import ProgressBar from '@/widgets/status/ProgressBar'
+import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -38,6 +40,9 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
   const router = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [isForward, setIsForward] = useState<boolean>(true)
+  const [inputData, setInputData] = useState<Record<CoupleConnectStep, string | undefined>>(
+    {} as Record<CoupleConnectStep, string | undefined>,
+  )
 
   const steps = CONNECT_STEP[type]
   const currentStep = steps[currentPage]
@@ -54,6 +59,14 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
     }
     setIsForward(false)
     setCurrentPage((prev) => prev - 1)
+  }
+  const handleDateChange = (date: Date | null) => {
+    if (date) setInputData((prev) => ({ ...prev, date: format(date, 'yyyy/MM/dd') }))
+    else
+      setInputData((prev) => {
+        delete prev.date
+        return prev
+      })
   }
 
   return (
@@ -83,7 +96,15 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
         <p className="h-16 text-center whitespace-pre-wrap">
           {CONNECT_STEP_INSTRUCTION[currentStep]}
         </p>
-        <div className="h-40"></div>
+        <div className="flex flex-col justify-center h-40">
+          {currentStep === 'date' && (
+            <DateButton
+              className="text-4xl"
+              date={inputData.date ? new Date(inputData.date) : null}
+              setDate={(date: Date | null) => handleDateChange(date)}
+            />
+          )}
+        </div>
         <div className="mt-12 self-end">
           <TextButton title="다음으로" className="text-brown" onClick={() => goToNextStep()} />
         </div>

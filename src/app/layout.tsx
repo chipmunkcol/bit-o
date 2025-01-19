@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
-import './globals.css'
+import 'react-datepicker/dist/react-datepicker.css'
 import Layout from './(pages)/layout/Layout'
+import './globals.css'
 
 export const viewport: Viewport = {
   width: 'device-width',

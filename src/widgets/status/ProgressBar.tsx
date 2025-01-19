@@ -4,31 +4,35 @@ import { memo, useEffect, useState } from 'react'
 interface ProgressBarProps {
   currentStep: number
   totalSteps: number
+  isForward: boolean
 }
 
-const ProgressBar = memo(({ currentStep, totalSteps }: ProgressBarProps) => {
+const ProgressBar = memo(({ currentStep, totalSteps, isForward }: ProgressBarProps) => {
   const [hearts, setHearts] = useState(Array(totalSteps).fill(false))
 
   useEffect(() => {
-    if (currentStep === 0) {
-      setHearts((prev) => prev.map((_, i) => i === currentStep))
-      return
+    let timeout: NodeJS.Timeout | null = null
+
+    const updateHearts = (condition: (i: number) => boolean) => {
+      setHearts((prev) => prev.map((_, i) => condition(i)))
     }
 
-    setHearts((prev) => prev.map((_, i) => i < currentStep))
-    const timeout = setTimeout(() => {
-      setHearts((prev) =>
-        prev.map((_, i) => {
-          if (i === currentStep) return true
-          else return prev[i]
-        }),
-      )
-    }, 100)
+    if (isForward) {
+      if (currentStep === 0) updateHearts((i) => i === currentStep)
+      else {
+        updateHearts((i) => i < currentStep)
+        timeout = setTimeout(() => {
+          updateHearts((i) => i <= currentStep)
+        }, 100)
+      }
+    } else {
+      updateHearts((i) => i <= currentStep)
+    }
 
     return () => {
-      clearTimeout(timeout)
+      if (timeout) clearTimeout(timeout)
     }
-  }, [currentStep])
+  }, [currentStep, isForward])
 
   if (totalSteps === 1) return null
   return (

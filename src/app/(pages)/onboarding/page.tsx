@@ -26,7 +26,7 @@ export default function Page() {
             <div>회원이 되신것을 환영합니다.</div>
           </div>
         </div>
-        <div className="border-r">
+        <div>
           <button
             style={{
               width: '345px',

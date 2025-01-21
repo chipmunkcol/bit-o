@@ -83,12 +83,13 @@ export default function AddEventPage() {
   }, [scheduleDetailData, setTitle, setNote, setDate, scheduleId])
 
   const handleSaveButton = () => {
+    const baseDate = date?.startDateTime || selectedDate || new Date()
     const form = {
       userId: 1, // <- 로그인 완성후 고칠부분
       title: title || 'No title',
       content: note || '',
-      startDateTime: format(date?.startDateTime || new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
-      endDateTime: format(date?.endDateTime || new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
+      startDateTime: format(date?.startDateTime || new Date(baseDate), "yyyy-MM-dd'T'HH:mm:ss"),
+      endDateTime: format(date?.endDateTime || new Date(baseDate), "yyyy-MM-dd'T'HH:mm:ss"),
     }
 
     //시작시간이 끝나는 시간보다 클 경우

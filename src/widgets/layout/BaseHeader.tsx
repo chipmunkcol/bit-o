@@ -17,11 +17,11 @@ const BaseHeader = ({ title, backIcon }: HeaderProps) => {
     router.back()
   }
   return (
-    <div className="flex px-[1.5rem] py-[1rem] sticky top-0 left-0 right-0 bg-white items-center">
+    <div className="flex px-[1.5rem] py-[1rem] sticky top-0 left-0 right-0 bg-white items-center ">
       {/** 뒤로가기  */}
       {backIcon && (
         <Image
-          className="rotate-180 absolute left-[1rem]"
+          className="rotate-180 absolute left-[1rem] cursor-pointer"
           alt="couble_right"
           src="/images/icon/arrow.png"
           width={30}

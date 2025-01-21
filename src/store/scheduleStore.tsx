@@ -40,7 +40,6 @@ const useScheduleStore = create<useScheduleStore>((set) => ({
   setNote: (note: string | null) => set({ note }),
   setSelectedDate: (selectedDate: Date) =>
     set((state) => {
-      console.log(state.schedules)
       //선택된 날짜의 plan filter
       if (state.schedules.length > 0) {
         const filteredPlans = state.schedules.filter((schedules) =>

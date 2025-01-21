@@ -1,9 +1,10 @@
 import useScheduleStore from '@/store/scheduleStore'
 import { dayOfTheWeek, generateDate } from '@/utils/calendar'
-import { isEqual, isWithinInterval, startOfDay } from 'date-fns'
+import { isEqual } from 'date-fns'
+import ScheduleList from './ScheduleList'
 
 const CalendarBody = () => {
-  const { selectedDate, setSelectedDate, schedules, currentDate } = useScheduleStore()
+  const { selectedDate, setSelectedDate, currentDate } = useScheduleStore()
 
   const getDateStyle = ({ date, today }: { date: Date | null; today: boolean | undefined }) => {
     if (!date) return
@@ -60,29 +61,8 @@ const CalendarBody = () => {
               >
                 <span className="cursor-pointer">{date.getDate()}</span>
               </div>
-              <ul className="absolute inset-0 top-[1.5rem]">
-                {schedules.length > 0 &&
-                  schedules.map((plan) => {
-                    //현재 날짜의 시작 시간 (00:00:00)으로 설정
-                    //날짜만 비교할 수 있게
-                    if (
-                      isWithinInterval(date, {
-                        start: startOfDay(plan.startDateTime),
-                        end: startOfDay(plan.endDateTime),
-                      })
-                    ) {
-                      return (
-                        <li
-                          key={plan.id}
-                          className={`bg-pink text-[0.5rem] text-ellipsis overflow-hidden px-[0.5rem] mt-1`}
-                        >
-                          {plan.title}
-                        </li>
-                      )
-                    }
-                    return null
-                  })}
-              </ul>
+              {/** 스케쥴 리스트 */}
+              <ScheduleList date={date} />
             </div>
           )
         })}

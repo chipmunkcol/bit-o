@@ -2,7 +2,7 @@ import { ScheduleResponse } from '@/features/calendar/types'
 import { addDays, isWithinInterval } from 'date-fns'
 import { create } from 'zustand'
 
-interface useScheduleStore {
+interface IScheduleStore {
   title: string | null
   note: string | null
   date: { startDateTime: Date; endDateTime: Date } | null
@@ -26,7 +26,7 @@ interface useScheduleStore {
   }) => void
 }
 
-const useScheduleStore = create<useScheduleStore>((set) => ({
+const useScheduleStore = create<IScheduleStore>((set) => ({
   title: null,
   note: null,
   date: null,

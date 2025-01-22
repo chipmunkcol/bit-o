@@ -1,12 +1,13 @@
 'use client'
 
+import BaseButton from '@/widgets/button/BaseButton'
 import DateButton from '@/widgets/button/DateButton'
 import TextButton from '@/widgets/button/TextButton'
 import ProgressBar from '@/widgets/status/ProgressBar'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type CoupleConnectType = 'create' | 'code'
 type CoupleConnectStep = 'date' | 'nickname' | 'create-code' | 'insert-code' | 'complete'
@@ -40,6 +41,7 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
   const router = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [isForward, setIsForward] = useState<boolean>(true)
+  const [code, setCode] = useState<string>('')
   const [inputData, setInputData] = useState<Record<CoupleConnectStep, string | undefined>>(
     {} as Record<CoupleConnectStep, string | undefined>,
   )
@@ -81,6 +83,19 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
         return newData
       })
   }
+
+  const requestCoupleCode = () => {
+    // TODO: API 요청
+    setCode('ABC12345')
+  }
+
+  const onClickShareButton = () => {
+    // TODO: 공유로직
+  }
+
+  useEffect(() => {
+    if (currentStep === 'create-code') requestCoupleCode()
+  }, [currentStep])
 
   return (
     <div className="flex flex-col p-8 h-full">
@@ -125,9 +140,29 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
               onChange={(e) => handleNicknameChange(e.target.value)}
             />
           )}
+          {currentStep === 'create-code' && (
+            <div className="flex flex-col items-center gap-y-4">
+              <p className="text-4xl">{code}</p>
+              <button className="flex items-center text-gray-300">
+                <Image src={'/images/icon/copy.png'} alt="copy icon" width={20} height={20} />
+                <span className="hover:border-b">복사하기</span>
+              </button>
+            </div>
+          )}
         </div>
-        <div className="mt-12 self-end">
-          <TextButton title="다음으로" className="text-brown" onClick={() => goToNextStep()} />
+        <div className="flex mt-12 w-full">
+          {['date', 'nickname', 'insert-code'].includes(currentStep) && (
+            <div className="ml-auto">
+              <TextButton title="다음으로" className="text-brown" onClick={goToNextStep} />
+            </div>
+          )}
+          {currentStep === 'create-code' && (
+            <BaseButton
+              title="공유하기"
+              className="bg-brown text-white"
+              onClick={onClickShareButton}
+            />
+          )}
         </div>
       </div>
     </div>

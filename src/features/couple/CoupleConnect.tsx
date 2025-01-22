@@ -89,6 +89,11 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
     setCode('ABC12345')
   }
 
+  const copyCode = () => {
+    // TODO: toast 메시지
+    window.navigator.clipboard.writeText(code).then(() => console.log('복사되었습니다.'))
+  }
+
   const onClickShareButton = () => {
     // TODO: 공유로직
   }
@@ -147,7 +152,7 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
           {currentStep === 'create-code' && (
             <div className="flex flex-col items-center gap-y-4">
               <p className="text-4xl">{code}</p>
-              <button className="flex items-center text-gray-300">
+              <button className="flex items-center text-gray-300" onClick={copyCode}>
                 <Image src={'/images/icon/copy.png'} alt="copy icon" width={20} height={20} />
                 <span className="hover:border-b">복사하기</span>
               </button>

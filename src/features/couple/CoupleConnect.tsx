@@ -74,12 +74,12 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
       })
   }
 
-  const handleNicknameChange = (nickname: string) => {
-    if (nickname) setInputData((prev) => ({ ...prev, nickname }))
+  const handleInputChange = (input: string, step: CoupleConnectStep) => {
+    if (input) setInputData((prev) => ({ ...prev, [step]: input }))
     else
       setInputData((prev) => {
         const newData = { ...prev }
-        delete newData.nickname
+        delete newData[step]
         return newData
       })
   }
@@ -91,6 +91,10 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
 
   const onClickShareButton = () => {
     // TODO: 공유로직
+  }
+
+  const onClickStartButton = () => {
+    // TODO: 홈으로 돌아가기
   }
 
   useEffect(() => {
@@ -132,12 +136,12 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
               setDate={(date: Date | null) => handleDateChange(date)}
             />
           )}
-          {currentStep === 'nickname' && (
+          {(currentStep === 'nickname' || currentStep === 'insert-code') && (
             <input
               type="text"
               className="bg-gray-50 p-2 rounded-md focus:ring-2 focus:ring-brown w-72 caret-brown focus:outline-none"
-              value={inputData.nickname || ''}
-              onChange={(e) => handleNicknameChange(e.target.value)}
+              value={inputData[currentStep] || ''}
+              onChange={(e) => handleInputChange(e.target.value, currentStep)}
             />
           )}
           {currentStep === 'create-code' && (
@@ -148,6 +152,14 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
                 <span className="hover:border-b">복사하기</span>
               </button>
             </div>
+          )}
+          {currentStep === 'complete' && (
+            <Image
+              src={'/images/illustration/love6.png'}
+              alt="heart illust"
+              width={160}
+              height={160}
+            />
           )}
         </div>
         <div className="flex mt-12 w-full">
@@ -161,6 +173,13 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
               title="공유하기"
               className="bg-brown text-white"
               onClick={onClickShareButton}
+            />
+          )}
+          {currentStep === 'complete' && (
+            <BaseButton
+              title="시작하기"
+              className="bg-brown text-white"
+              onClick={onClickStartButton}
             />
           )}
         </div>

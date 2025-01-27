@@ -1,7 +1,21 @@
+'use client'
 import BaseButton from '@/widgets/button/BaseButton'
+
 import Image from 'next/image'
+import Link from 'next/link'
+// import { useRouter } from 'next/router'
+// import instance from '../../../utils/api/axiosInstance'
 
 export default function Page() {
+  // const handleAxiosTest = async () => {
+  //   const result = await instance.get(`/schedule/0`)
+  //   console.log('🚀 ~ handleAxiosTest ~ result:', result)
+  // }
+  // const router = useRouter()
+  // const handleStart = () => {
+  //   router.push('/')
+  // }
+
   return (
     <div className="h-full">
       <div className="h-full flex flex-col justify-center items-center gap-24 text-center">
@@ -16,7 +30,15 @@ export default function Page() {
           </div>
         </div>
         <div>
-          <BaseButton title="시작하기" />
+          <Link href={'/'}>
+            <BaseButton
+              title="시작하기"
+              color="bg-brown"
+              style={{
+                width: '200px',
+              }}
+            />
+          </Link>
         </div>
       </div>
     </div>

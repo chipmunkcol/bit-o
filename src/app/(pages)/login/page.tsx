@@ -1,23 +1,25 @@
 'use client'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
 export default function Page() {
   console.log('로그인 페이지 렌더링')
-  // const searchParams = useSearchParams()
+  const searchParams = useSearchParams()
   const router = useRouter()
 
   useEffect(() => {
-    // const token = searchParams.get('token')
-    // if (token) {
-    //   router.push('/onboarding')
-    // }
+    const token = searchParams.get('token')
+    if (token) {
+      // 파라미터로 넘어오는 access_token 저장
+      localStorage.setItem('access_token', token)
+      router.push('/onboarding')
+    }
   }, [])
 
   const onClickLogin = () => {
-    router.push('/onboarding')
+    router.push('http://localhost:8080/oauth2/authorization/kakao')
   }
 
   return (

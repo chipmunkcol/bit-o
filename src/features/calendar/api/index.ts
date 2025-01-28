@@ -28,3 +28,9 @@ export const putSchedule = async ({
     body: JSON.stringify(scheduleDetail),
   })
 }
+
+export const deleteSchedule = async ({ scheduleId }: { scheduleId: number }) => {
+  return client(`/schedule/${scheduleId}`, {
+    method: 'DELETE',
+  })
+}

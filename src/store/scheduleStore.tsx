@@ -24,6 +24,7 @@ interface IScheduleStore {
     scheduleId: number
     scheduleDetail: ScheduleResponse
   }) => void
+  deleteScheduleList: ({ scheduleId }: { scheduleId: number }) => void
 }
 
 const useScheduleStore = create<IScheduleStore>((set) => ({
@@ -65,6 +66,11 @@ const useScheduleStore = create<IScheduleStore>((set) => ({
       const updatedList = state.schedules.map((schedule) =>
         schedule.id === scheduleId ? scheduleDetail : schedule,
       )
+      return { schedules: updatedList }
+    }),
+  deleteScheduleList: ({ scheduleId }: { scheduleId: number }) =>
+    set((state) => {
+      const updatedList = state.schedules.filter((schedule) => schedule.id !== scheduleId)
       return { schedules: updatedList }
     }),
 }))

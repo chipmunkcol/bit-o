@@ -8,7 +8,12 @@ import AddEventNote from './AddScheduleNote'
 import AddEventLocation from './AddScheduleLocation'
 import { useParams, useRouter } from 'next/navigation'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { getScheduleDetail, postSchedule, putSchedule } from '@/features/calendar/api'
+import {
+  deleteSchedule,
+  getScheduleDetail,
+  postSchedule,
+  putSchedule,
+} from '@/features/calendar/api'
 import { Schedule, ScheduleResponse } from '@/features/calendar/types'
 import { useEffect } from 'react'
 import useScheduleStore from '@/store/scheduleStore'
@@ -16,6 +21,7 @@ import LoadingSpinner from '@/shared/ui/LoadingSpinner'
 import { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { compareDesc } from 'date-fns/fp'
+import Image from 'next/image'
 
 /**
  * id 있다면 : 스케쥴 수정
@@ -31,6 +37,7 @@ export default function AddEventPage() {
     setDate,
     updateScheduleList,
     setSelectedDate,
+    deleteScheduleList,
     selectedDate,
   } = useScheduleStore()
   const params = useParams() as { id: string }
@@ -56,7 +63,19 @@ export default function AddEventPage() {
       updateScheduleList({ scheduleId, scheduleDetail: data })
 
       if (selectedDate) {
-        // setTimeout(() => setSelectedDate(selectedDate), 100)
+        setSelectedDate(selectedDate)
+      }
+      router.back()
+    },
+    onError: (error: AxiosError) => {
+      alert(error)
+    },
+  })
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteSchedule({ scheduleId }),
+    onSuccess: () => {
+      deleteScheduleList({ scheduleId })
+      if (selectedDate) {
         setSelectedDate(selectedDate)
       }
       router.back()
@@ -101,12 +120,31 @@ export default function AddEventPage() {
     saveMutation.mutate(form)
   }
 
+  const handleDeleteButton = () => {
+    deleteMutation.mutate()
+  }
+
   if (isLoading) return <LoadingSpinner />
   if (isError) alert(error)
 
   return (
     <>
-      <BaseHeader title={'이벤트 추가'} backIcon />
+      <BaseHeader
+        title={'이벤트 추가'}
+        backIcon
+        nextIcon={
+          scheduleId ? (
+            <Image
+              className="cursor-pointer absolute right-[1rem]"
+              alt="couble_right"
+              src="/images/icon/delete.png"
+              width={20}
+              height={20}
+              onClick={handleDeleteButton}
+            />
+          ) : null
+        }
+      />
       <div className="flex flex-col px-[1.5rem] overflow-hidden py-[1.5rem] h-[75vh] ">
         <div className="flex flex-col flex-grow overflow-y-auto gap-[3rem] ">
           <AddEventTitle placeholder={'Title'} />

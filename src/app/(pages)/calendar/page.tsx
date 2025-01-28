@@ -28,7 +28,6 @@ export default function CalendarPage() {
   useEffect(() => {
     if (plandata && Array.isArray(plandata)) {
       setSchedules(plandata)
-      // setSelectedDate(new Date())
     }
   }, [plandata, setSchedules, setSelectedDate])
 

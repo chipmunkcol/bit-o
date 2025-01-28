@@ -12,16 +12,16 @@ instance.interceptors.request.use(
     // 스토리지에서 access토큰 가져오는 로직
     const accessToken = localStorage.getItem('access_token')
 
-    // 쿠키에서 refresh토큰 가져오는 로직
-    const cookies = document.cookie
-    const refreshToken = cookies.split('refresh_token=')[1]
-
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`
     }
-    if (refreshToken) {
-      config.headers['x-refresh-token'] = refreshToken // header name: x-refresh-token 체크!
-    }
+
+    // 쿠키에서 refresh토큰 GET
+    // const cookies = document.cookie
+    // const refreshToken = cookies.split('refresh_token=')[1]
+    // if (refreshToken) {
+    //   config.headers['x-refresh-token'] = refreshToken // header name: x-refresh-token 체크!
+    // }
 
     return config
   },
@@ -44,13 +44,10 @@ instance.interceptors.response.use(
     } = error
 
     if (status === 401 && data?.message === 'Access Token is Expired') {
-      // && data.message === 'TokenExpired'v
-
-      // 로그인 시 백엔드에서 쿠키에 저장한 refresh_token
       const cookies = document.cookie
       const refreshToken = cookies.split('refresh_token=')[1]
       if (!refreshToken) {
-        // logoutAndHome();
+        // logoutAndHome() // 전체 프로세스 정해지면 추가
         return
       }
 
@@ -61,18 +58,19 @@ instance.interceptors.response.use(
         if (tokenRefreshResult.status === 200) {
           console.log('🚀 ~ tokenRefreshResult:', tokenRefreshResult)
 
-          const { accessToken } = tokenRefreshResult.data
           // 새로 발급받은 토큰을 스토리지에 저장
-          localStorage.setItem('accessToken', accessToken)
-          // localStorage.setItem('refreshToken', refreshToken)
+          const { accessToken } = tokenRefreshResult.data
+          localStorage.setItem('access_token', accessToken)
+
           // 토큰 갱신 성공. API 재요청
           return instance(config)
         } else {
-          // logout();
+          // 백엔드 에러메세지 (	Error: response status is 500 )
+          // logoutAndHome() // 전체 프로세스 정해지면 추가
         }
       } catch (err) {
         console.error(err)
-        // logout();
+        // logoutAndHome() // 전체 프로세스 정해지면 추가
       }
     }
 

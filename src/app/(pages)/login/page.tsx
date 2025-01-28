@@ -32,12 +32,7 @@ export default function Page() {
           <div>간편하게 로그인하고</div>
           <div>다양한 서비스를 이용해보세요.</div>
         </div>
-        <div
-          className="mt-4 mb-10 cursor-pointer"
-          onClick={() => {
-            onClickLogin()
-          }}
-        >
+        <div className="mt-4 mb-10 cursor-pointer" onClick={onClickLogin}>
           <Image
             width={340}
             height={52}

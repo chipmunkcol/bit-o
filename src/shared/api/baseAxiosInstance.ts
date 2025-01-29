@@ -16,13 +16,6 @@ instance.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${accessToken}`
     }
 
-    // 쿠키에서 refresh토큰 GET
-    // const cookies = document.cookie
-    // const refreshToken = cookies.split('refresh_token=')[1]
-    // if (refreshToken) {
-    //   config.headers['x-refresh-token'] = refreshToken // header name: x-refresh-token 체크!
-    // }
-
     return config
   },
   function (error) {
@@ -78,4 +71,4 @@ instance.interceptors.response.use(
   },
 )
 
-export default instance
+export { instance }

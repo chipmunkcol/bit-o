@@ -1,6 +1,6 @@
 import { client } from '@/utils/api/client'
 import { Schedule, ScheduleResponse } from '../types'
-// import instance from '@/utils/api/axiosInstance'
+// import { instance } from '@/shared/api'
 
 export const getCalendarList = async (userId: number): Promise<ScheduleResponse[]> => {
   return client(`/schedule/user/${userId}`)

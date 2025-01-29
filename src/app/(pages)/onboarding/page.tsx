@@ -1,20 +1,24 @@
 'use client'
+import { userApi } from '@/entities/userInfo'
+import useUserInfoStore from '@/store/userInfoStore'
 import BaseButton from '@/widgets/button/BaseButton'
 
 import Image from 'next/image'
 import Link from 'next/link'
-// import { useRouter } from 'next/router'
-// import instance from '../../../utils/api/axiosInstance'
+import { useEffect } from 'react'
 
 export default function Page() {
-  // const handleAxiosTest = async () => {
-  //   const result = await instance.get(`/schedule/0`)
-  //   console.log('🚀 ~ handleAxiosTest ~ result:', result)
-  // }
-  // const router = useRouter()
-  // const handleStart = () => {
-  //   router.push('/')
-  // }
+  const { userInfo, setUserInfo } = useUserInfoStore()
+  const getUserInfo = async () => {
+    const result = await userApi()
+    if (result) {
+      setUserInfo(result)
+    }
+  }
+
+  useEffect(() => {
+    getUserInfo()
+  }, [])
 
   return (
     <div className="h-full">
@@ -23,10 +27,12 @@ export default function Page() {
           <div className="flex justify-center">
             <Image width={50} height={50} src={'/images/icon/check_br.png'} alt="chcek-icon" />
           </div>
-          <div className="text-[21px]">회원가입 완료</div>
+          {/* <div className="text-[21px]">회원가입 완료</div> */}
+          <div className="text-[21px]">로그인 완료</div>
           <div>
-            <div>이**님 반갑습니다!</div>
-            <div>회원이 되신것을 환영합니다.</div>
+            <div>{userInfo.nickName}님 반갑습니다!</div>
+            {/* <div>회원이 되신것을 환영합니다.</div> */}
+            <div>재방문을 환영합니다</div>
           </div>
         </div>
         <div>

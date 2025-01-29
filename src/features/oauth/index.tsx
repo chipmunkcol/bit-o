@@ -1,19 +1,12 @@
-import { useEffect } from 'react'
-import UseLoginOauth from './lib/use-login-oauth'
-import LoginKakaoBtn from './ui/login-kakao-btn'
+import UseLoginOauth from './lib/useLoginOauth'
+import LoginKakaoBtn from './ui/loginKakaoBtn'
 
 const Oauth = () => {
-  const { redirectToKakaoAuth, isLogin, routeOnboarding } = UseLoginOauth()
-
-  useEffect(() => {
-    if (isLogin) {
-      routeOnboarding()
-    }
-  }, [isLogin])
+  const { loginController } = UseLoginOauth()
 
   return (
     <>
-      <LoginKakaoBtn handler={redirectToKakaoAuth} />
+      <LoginKakaoBtn handler={loginController} />
       <div>
         <div className="underline text-sm text-gray-300">다른 이메일로 시작하기</div>
       </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { Oauth } from '@/features'
+import Oauth from '@/features/oauth'
 import Image from 'next/image'
 
 export default function Page() {

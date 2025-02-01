@@ -13,8 +13,8 @@ import {
   getScheduleDetail,
   postSchedule,
   putSchedule,
-} from '@/features/calendar/api'
-import { Schedule, ScheduleResponse } from '@/features/calendar/types'
+} from '@/entities/calendar/api'
+import { Schedule, ScheduleResponse } from '@/entities/calendar/api/types'
 import { useEffect } from 'react'
 import useScheduleStore from '@/store/scheduleStore'
 import LoadingSpinner from '@/shared/ui/LoadingSpinner'
@@ -116,6 +116,7 @@ export default function AddEventPage() {
       userId: 1, // <- 로그인 완성후 고칠부분
       title: title || 'No title',
       content: note || '',
+      location: '',
       startDateTime: format(date?.startDateTime || new Date(baseDate), "yyyy-MM-dd'T'HH:mm:ss"),
       endDateTime: format(date?.endDateTime || new Date(baseDate), "yyyy-MM-dd'T'HH:mm:ss"),
     }

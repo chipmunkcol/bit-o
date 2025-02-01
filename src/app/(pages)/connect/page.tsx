@@ -4,7 +4,7 @@ import BaseButton from '@/widgets/button/BaseButton'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-export default function StartPage() {
+export default function ConnectPage() {
   const router = useRouter()
 
   const handleCreateCoupleButtonClick = () => {
@@ -14,7 +14,7 @@ export default function StartPage() {
     router.push('/connect/insert-code')
   }
   return (
-    <div className="flex flex-col justify-center items-center h-screen start">
+    <div className="flex flex-col justify-center items-center h-screen">
       <Image height={192} width={192} src="/images/logo/icon_192.png" alt="logo" />
       <p className="mt-16 text-lg">BitO 시작하기</p>
       <div className="mt-8 px-12 w-full">

@@ -3,6 +3,8 @@ import React, { forwardRef, memo } from 'react'
 interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string
   className?: string
+  type?: 'button' | 'submit' | 'reset'
+  disabled?: boolean
 }
 
 const BaseButton = memo(

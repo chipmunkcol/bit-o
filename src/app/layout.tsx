@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import 'react-datepicker/dist/react-datepicker.css'
 import Layout from './(pages)/layout/Layout'
 import './globals.css'
-
+import Providers from './providers'
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -34,7 +34,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Layout>{children}</Layout>
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   )

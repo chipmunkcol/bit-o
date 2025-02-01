@@ -44,6 +44,8 @@ export default function AddEventPage() {
   const router = useRouter()
 
   const scheduleId = parseInt(params.id)
+
+  /**Schedule 정보 use-query */
   const {
     data: scheduleDetailData,
     isLoading,
@@ -54,6 +56,8 @@ export default function AddEventPage() {
     queryFn: () => getScheduleDetail(scheduleId),
     enabled: !!scheduleId,
   })
+
+  /**Schedule 저장 use-query */
   const saveMutation = useMutation({
     mutationFn: (scheduleData: Schedule) =>
       scheduleId
@@ -71,6 +75,8 @@ export default function AddEventPage() {
       alert(error)
     },
   })
+
+  /**Schedule 삭제 use-query */
   const deleteMutation = useMutation({
     mutationFn: () => deleteSchedule({ scheduleId }),
     onSuccess: () => {
@@ -101,6 +107,9 @@ export default function AddEventPage() {
     }
   }, [scheduleDetailData, setTitle, setNote, setDate, scheduleId])
 
+  /**
+   * Schedule 저장
+   * */
   const handleSaveButton = () => {
     const baseDate = date?.startDateTime || selectedDate || new Date()
     const form = {
@@ -120,6 +129,9 @@ export default function AddEventPage() {
     saveMutation.mutate(form)
   }
 
+  /**
+   * Schedule 삭제
+   * */
   const handleDeleteButton = () => {
     deleteMutation.mutate()
   }

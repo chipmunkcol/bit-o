@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 import Image from 'next/image'
 
 const AddEventTime = () => {
-  const { date, setDate } = useScheduleStore()
+  const { date, setDate, selectedDate } = useScheduleStore()
 
   const handleDateInput = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -15,8 +15,8 @@ const AddEventTime = () => {
   ) => {
     const value = e.target.value
     const defaultDate = {
-      startDateTime: new Date(),
-      endDateTime: new Date(),
+      startDateTime: selectedDate ? new Date(selectedDate) : new Date(),
+      endDateTime: selectedDate ? new Date(selectedDate) : new Date(),
     }
 
     const currentDate = date || defaultDate
@@ -40,7 +40,7 @@ const AddEventTime = () => {
     <div className="flex">
       <div className="flex flex-row gap-[0.8rem] flex-wrap w-full">
         <DateTimeInput
-          dateTime={date ? date?.startDateTime : new Date()}
+          dateTime={date ? date?.startDateTime : selectedDate ? new Date(selectedDate) : new Date()}
           handleDateChange={(e) => handleDateInput(e, 'start', 'date')}
           handleTimeChange={(e) => handleDateInput(e, 'start', 'time')}
         />
@@ -48,7 +48,7 @@ const AddEventTime = () => {
           <Image alt="left" src="/images/icon/arrow.png" width={24} height={24} />
         </div>
         <DateTimeInput
-          dateTime={date ? date?.endDateTime : new Date()}
+          dateTime={date ? date?.endDateTime : selectedDate ? new Date(selectedDate) : new Date()}
           handleDateChange={(e) => handleDateInput(e, 'end', 'date')}
           handleTimeChange={(e) => handleDateInput(e, 'end', 'time')}
         />

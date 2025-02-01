@@ -1,8 +1,8 @@
-import { ScheduleResponse } from '@/features/calendar/types'
+import { ScheduleResponse } from '@/entities/calendar/api/types'
 import { addDays, isWithinInterval } from 'date-fns'
 import { create } from 'zustand'
 
-interface useScheduleStore {
+interface IScheduleStore {
   title: string | null
   note: string | null
   date: { startDateTime: Date; endDateTime: Date } | null
@@ -24,9 +24,10 @@ interface useScheduleStore {
     scheduleId: number
     scheduleDetail: ScheduleResponse
   }) => void
+  deleteScheduleList: ({ scheduleId }: { scheduleId: number }) => void
 }
 
-const useScheduleStore = create<useScheduleStore>((set) => ({
+const useScheduleStore = create<IScheduleStore>((set) => ({
   title: null,
   note: null,
   date: null,
@@ -40,7 +41,6 @@ const useScheduleStore = create<useScheduleStore>((set) => ({
   setNote: (note: string | null) => set({ note }),
   setSelectedDate: (selectedDate: Date) =>
     set((state) => {
-      console.log(state.schedules)
       //선택된 날짜의 plan filter
       if (state.schedules.length > 0) {
         const filteredPlans = state.schedules.filter((schedules) =>
@@ -66,6 +66,11 @@ const useScheduleStore = create<useScheduleStore>((set) => ({
       const updatedList = state.schedules.map((schedule) =>
         schedule.id === scheduleId ? scheduleDetail : schedule,
       )
+      return { schedules: updatedList }
+    }),
+  deleteScheduleList: ({ scheduleId }: { scheduleId: number }) =>
+    set((state) => {
+      const updatedList = state.schedules.filter((schedule) => schedule.id !== scheduleId)
       return { schedules: updatedList }
     }),
 }))

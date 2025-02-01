@@ -4,8 +4,8 @@ import { useEffect } from 'react'
 import CalendarHeader from './CalendarHeader'
 import CalendarBody from './CalendarBody'
 import { useQuery } from '@tanstack/react-query'
-import { ScheduleResponse } from '@/features/calendar/types'
-import { getCalendarList } from '@/features/calendar/api'
+import { ScheduleResponse } from '@/entities/calendar/api/types'
+import { getCalendarList } from '@/entities/calendar/api'
 import useScheduleStore from '@/store/scheduleStore'
 import LoadingSpinner from '@/shared/ui/LoadingSpinner'
 import CalendarPlans from './CalendarPlans'
@@ -13,22 +13,19 @@ import CalendarPlans from './CalendarPlans'
 export default function CalendarPage() {
   const { setSelectedDate, setSchedules, setCurrentDate, currentDate } = useScheduleStore()
 
-  /*** 로그인 만들어지면 고치기 */
-  const userId = 1
   const {
     isLoading,
     isError,
     data: plandata,
     error,
   } = useQuery<ScheduleResponse[]>({
-    queryKey: ['calendarlist', userId],
-    queryFn: () => getCalendarList(userId),
+    queryKey: ['calendarlist'],
+    queryFn: () => getCalendarList(),
   })
 
   useEffect(() => {
     if (plandata && Array.isArray(plandata)) {
       setSchedules(plandata)
-      // setSelectedDate(new Date())
     }
   }, [plandata, setSchedules, setSelectedDate])
 

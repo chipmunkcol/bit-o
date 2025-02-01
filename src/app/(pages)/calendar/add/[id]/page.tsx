@@ -8,14 +8,20 @@ import AddEventNote from './AddScheduleNote'
 import AddEventLocation from './AddScheduleLocation'
 import { useParams, useRouter } from 'next/navigation'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { getScheduleDetail, postSchedule, putSchedule } from '@/features/calendar/api'
-import { Schedule, ScheduleResponse } from '@/features/calendar/types'
+import {
+  deleteSchedule,
+  getScheduleDetail,
+  postSchedule,
+  putSchedule,
+} from '@/entities/calendar/api'
+import { Schedule, ScheduleResponse } from '@/entities/calendar/api/types'
 import { useEffect } from 'react'
 import useScheduleStore from '@/store/scheduleStore'
 import LoadingSpinner from '@/shared/ui/LoadingSpinner'
 import { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { compareDesc } from 'date-fns/fp'
+import Image from 'next/image'
 
 /**
  * id 있다면 : 스케쥴 수정
@@ -31,12 +37,15 @@ export default function AddEventPage() {
     setDate,
     updateScheduleList,
     setSelectedDate,
+    deleteScheduleList,
     selectedDate,
   } = useScheduleStore()
   const params = useParams() as { id: string }
   const router = useRouter()
 
   const scheduleId = parseInt(params.id)
+
+  /**Schedule 정보 use-query */
   const {
     data: scheduleDetailData,
     isLoading,
@@ -47,6 +56,8 @@ export default function AddEventPage() {
     queryFn: () => getScheduleDetail(scheduleId),
     enabled: !!scheduleId,
   })
+
+  /**Schedule 저장 use-query */
   const saveMutation = useMutation({
     mutationFn: (scheduleData: Schedule) =>
       scheduleId
@@ -56,7 +67,21 @@ export default function AddEventPage() {
       updateScheduleList({ scheduleId, scheduleDetail: data })
 
       if (selectedDate) {
-        // setTimeout(() => setSelectedDate(selectedDate), 100)
+        setSelectedDate(selectedDate)
+      }
+      router.back()
+    },
+    onError: (error: AxiosError) => {
+      alert(error)
+    },
+  })
+
+  /**Schedule 삭제 use-query */
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteSchedule({ scheduleId }),
+    onSuccess: () => {
+      deleteScheduleList({ scheduleId })
+      if (selectedDate) {
         setSelectedDate(selectedDate)
       }
       router.back()
@@ -82,13 +107,18 @@ export default function AddEventPage() {
     }
   }, [scheduleDetailData, setTitle, setNote, setDate, scheduleId])
 
+  /**
+   * Schedule 저장
+   * */
   const handleSaveButton = () => {
+    const baseDate = date?.startDateTime || selectedDate || new Date()
     const form = {
       userId: 1, // <- 로그인 완성후 고칠부분
       title: title || 'No title',
       content: note || '',
-      startDateTime: format(date?.startDateTime || new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
-      endDateTime: format(date?.endDateTime || new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
+      location: '',
+      startDateTime: format(date?.startDateTime || new Date(baseDate), "yyyy-MM-dd'T'HH:mm:ss"),
+      endDateTime: format(date?.endDateTime || new Date(baseDate), "yyyy-MM-dd'T'HH:mm:ss"),
     }
 
     //시작시간이 끝나는 시간보다 클 경우
@@ -100,13 +130,35 @@ export default function AddEventPage() {
     saveMutation.mutate(form)
   }
 
+  /**
+   * Schedule 삭제
+   * */
+  const handleDeleteButton = () => {
+    deleteMutation.mutate()
+  }
+
   if (isLoading) return <LoadingSpinner />
   if (isError) alert(error)
 
   return (
     <>
-      <BaseHeader title={'이벤트 추가'} backIcon />
-      <div className="flex flex-col px-[1.5rem] h-[100vh] overflow-hidden py-[1.5rem]">
+      <BaseHeader
+        title={'이벤트 추가'}
+        backIcon
+        nextIcon={
+          scheduleId ? (
+            <Image
+              className="cursor-pointer absolute right-[1rem]"
+              alt="couble_right"
+              src="/images/icon/delete.png"
+              width={20}
+              height={20}
+              onClick={handleDeleteButton}
+            />
+          ) : null
+        }
+      />
+      <div className="flex flex-col px-[1.5rem] overflow-hidden py-[1.5rem] h-[75vh] ">
         <div className="flex flex-col flex-grow overflow-y-auto gap-[3rem] ">
           <AddEventTitle placeholder={'Title'} />
           <AddEventTime />
@@ -114,7 +166,7 @@ export default function AddEventPage() {
           <AddEventNote />
         </div>
       </div>
-      <div className="sticky bottom-0 left-0 right-0 pb-[3rem] pt-[1.5rem] px-[1.5rem]">
+      <div className="sticky left-0 right-0 pb-[3rem] pt-[1.5rem] px-[1.5rem] ">
         <BaseButton title="저장하기" onClick={handleSaveButton} />
       </div>
     </>

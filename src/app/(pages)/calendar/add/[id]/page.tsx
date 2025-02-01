@@ -167,7 +167,7 @@ export default function AddEventPage() {
         </div>
       </div>
       <div className="sticky left-0 right-0 pb-[3rem] pt-[1.5rem] px-[1.5rem] ">
-        <BaseButton title="저장하기" onClick={handleSaveButton} />
+        <BaseButton title="저장하기" className="bg-brown text-white" onClick={handleSaveButton} />
       </div>
     </>
   )

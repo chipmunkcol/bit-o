@@ -36,7 +36,6 @@ instance.interceptors.response.use(
       response: { status, data },
     } = error
 
-    console.log('status', status)
     if (status === 401 && data?.message === 'Access Token is Expired') {
       const cookies = document.cookie
       const refreshToken = cookies.split('refresh_token=')[1]
@@ -63,7 +62,6 @@ instance.interceptors.response.use(
           // logoutAndHome() // 전체 프로세스 정해지면 추가
         }
       } catch (err) {
-        console.log('에러!!!!!')
         console.error(err)
         // logoutAndHome() // 전체 프로세스 정해지면 추가
       }

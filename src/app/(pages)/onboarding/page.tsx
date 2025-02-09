@@ -39,7 +39,7 @@ export default function Page() {
           <Link href={'/'}>
             <BaseButton
               title="시작하기"
-              color="bg-brown"
+              className="bg-brown text-white"
               style={{
                 width: '200px',
               }}

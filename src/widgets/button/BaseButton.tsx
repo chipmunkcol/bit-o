@@ -1,22 +1,22 @@
-import { forwardRef, memo } from 'react'
+import React, { forwardRef, memo } from 'react'
 
 interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  type?: 'button' | 'submit' | 'reset'
   title: string
-  color?: 'bg-pink' | 'bg-brown'
+  type?: 'button' | 'submit' | 'reset'
+  className?: string
   disabled?: boolean
 }
 
 const BaseButton = memo(
   forwardRef<HTMLButtonElement, BaseButtonProps>(
-    ({ type = 'button', disabled, title, color = 'bg-pink', ...props }, ref) => {
+    ({ type = 'button', title, className, disabled, ...props }, ref) => {
       return (
         <button
           ref={ref}
           type={type}
           disabled={disabled}
+          className={`hover:shadow-[0_0_16px_rgba(160,168,180,0.3)] duration-200 py-[0.85rem] rounded-full w-full ${className}`}
           {...props}
-          className={`${color} rounded-full py-[0.85rem] text-white w-full shadow-md`}
         >
           {title}
         </button>

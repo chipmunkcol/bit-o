@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { memo, useEffect, useState } from 'react'
 
@@ -7,7 +9,7 @@ interface ProgressBarProps {
   isForward: boolean
 }
 
-const ProgressBar = memo(({ currentStep, totalSteps, isForward }: ProgressBarProps) => {
+export const ProgressBar = memo(({ currentStep, totalSteps, isForward }: ProgressBarProps) => {
   const [hearts, setHearts] = useState(Array(totalSteps).fill(false))
 
   useEffect(() => {
@@ -68,5 +70,3 @@ const ProgressBar = memo(({ currentStep, totalSteps, isForward }: ProgressBarPro
 })
 
 ProgressBar.displayName = 'ProgressBar'
-
-export default ProgressBar

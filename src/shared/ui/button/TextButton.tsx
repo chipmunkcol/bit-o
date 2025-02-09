@@ -5,7 +5,7 @@ interface TextButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   className?: string
 }
 
-const TextButton = memo(
+export const TextButton = memo(
   forwardRef<HTMLButtonElement, TextButtonProps>(
     ({ type = 'button', title, className, ...props }, ref) => {
       return (
@@ -21,5 +21,3 @@ const TextButton = memo(
     },
   ),
 )
-
-export default TextButton

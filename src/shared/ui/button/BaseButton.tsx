@@ -7,7 +7,7 @@ interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   disabled?: boolean
 }
 
-const BaseButton = memo(
+export const BaseButton = memo(
   forwardRef<HTMLButtonElement, BaseButtonProps>(
     ({ type = 'button', title, className, disabled, ...props }, ref) => {
       return (
@@ -24,5 +24,3 @@ const BaseButton = memo(
     },
   ),
 )
-
-export default BaseButton

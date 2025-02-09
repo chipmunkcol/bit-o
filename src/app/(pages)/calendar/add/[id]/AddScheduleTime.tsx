@@ -1,7 +1,7 @@
 'use client'
 
+import { DateTimeInput } from '@/shared/ui'
 import useScheduleStore from '@/store/scheduleStore'
-import DateTimeInput from '@/widgets/input/DateTimeInput'
 import { format } from 'date-fns'
 import Image from 'next/image'
 

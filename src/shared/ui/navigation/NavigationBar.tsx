@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { BottomNavMenu } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
-const NavigationBar = () => {
+export const NavigationBar = () => {
   const [menuId, setMenuId] = useState<number>()
 
   const handleClickButton = (id: number) => {
@@ -45,5 +45,3 @@ const NavigationBar = () => {
     </div>
   )
 }
-
-export default NavigationBar

@@ -1,7 +1,7 @@
 'use client'
 
 /** 로딩 스피너 */
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
   return (
     <div
       role="status"
@@ -14,5 +14,3 @@ const LoadingSpinner = () => {
     </div>
   )
 }
-
-export default LoadingSpinner

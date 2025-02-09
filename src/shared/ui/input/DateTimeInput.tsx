@@ -6,7 +6,11 @@ interface DateTimeInputProps {
   handleTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const DateTimeInput = ({ dateTime, handleDateChange, handleTimeChange }: DateTimeInputProps) => {
+export const DateTimeInput = ({
+  dateTime,
+  handleDateChange,
+  handleTimeChange,
+}: DateTimeInputProps) => {
   return (
     <div className="flex flex-1 flex-col">
       <input type="date" value={format(dateTime, 'yyyy-MM-dd')} onChange={handleDateChange} />
@@ -14,5 +18,3 @@ const DateTimeInput = ({ dateTime, handleDateChange, handleTimeChange }: DateTim
     </div>
   )
 }
-
-export default DateTimeInput

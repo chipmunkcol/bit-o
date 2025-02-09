@@ -1,6 +1,6 @@
 'use client'
 
-import NavigationBar from '@/shared/ui/NavigationBar'
+import { NavigationBar } from '@/shared/ui'
 import { usePathname } from 'next/navigation'
 
 import { ReactNode } from 'react'
@@ -8,7 +8,7 @@ import { ReactNode } from 'react'
 interface LayoutProps {
   children: ReactNode
 }
-const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname()
 
   /** Navigation Bar가 보일 주요 메인 페이지 */
@@ -30,5 +30,3 @@ const Layout = ({ children }: LayoutProps) => {
     </div>
   )
 }
-
-export default Layout

@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
@@ -12,7 +14,7 @@ interface HeaderProps {
  * 기본 헤더 컴포넌트
  * 옵션 : 뒤로가기 버튼, 다음 커스텀 버튼
  */
-const BaseHeader = ({ title, backIcon, nextIcon }: HeaderProps) => {
+export const BaseHeader = ({ title, backIcon, nextIcon }: HeaderProps) => {
   const router = useRouter()
 
   const handleBackIcon = () => {
@@ -37,4 +39,3 @@ const BaseHeader = ({ title, backIcon, nextIcon }: HeaderProps) => {
     </div>
   )
 }
-export default BaseHeader

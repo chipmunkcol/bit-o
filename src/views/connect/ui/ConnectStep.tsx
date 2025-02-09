@@ -1,27 +1,24 @@
 'use client'
 
-import BaseButton from '@/widgets/button/BaseButton'
-import DateButton from '@/widgets/button/DateButton'
-import TextButton from '@/widgets/button/TextButton'
-import ProgressBar from '@/widgets/status/ProgressBar'
+import { BaseButton, DateButton, ProgressBar, TextButton } from '@/shared/ui'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-type CoupleConnectType = 'create' | 'code'
-type CoupleConnectStep = 'date' | 'nickname' | 'create-code' | 'insert-code' | 'complete'
+type ConnectStepType = 'create' | 'code'
+type ConnectStep = 'date' | 'nickname' | 'create-code' | 'insert-code' | 'complete'
 
-interface CoupleConnectProps {
-  type: CoupleConnectType
+interface ConnectStepProps {
+  type: ConnectStepType
 }
 
-const CONNECT_STEP: Record<CoupleConnectType, CoupleConnectStep[]> = {
+const CONNECT_STEP: Record<ConnectStepType, ConnectStep[]> = {
   create: ['date', 'nickname', 'create-code'],
   code: ['insert-code', 'nickname', 'complete'],
 }
 
-const CONNECT_STEP_IMAGE: Record<CoupleConnectStep, string> = {
+const CONNECT_STEP_IMAGE: Record<ConnectStep, string> = {
   date: '/images/illustration/love1.png',
   nickname: '/images/illustration/love2.png',
   'create-code': '/images/illustration/love3.png',
@@ -29,7 +26,7 @@ const CONNECT_STEP_IMAGE: Record<CoupleConnectStep, string> = {
   complete: '/images/illustration/love5.png',
 }
 
-const CONNECT_STEP_INSTRUCTION: Record<CoupleConnectStep, string> = {
+const CONNECT_STEP_INSTRUCTION: Record<ConnectStep, string> = {
   date: '처음 사귀기 시작한 날짜를 \n선택해주세요.',
   nickname: '우리 둘 사이에서\n나의 애칭은 무엇인가요?',
   'create-code': '커플 코드가 생성되었어요.\n상대방에게 공유해볼까요?',
@@ -37,13 +34,13 @@ const CONNECT_STEP_INSTRUCTION: Record<CoupleConnectStep, string> = {
   complete: '커플 연결이 완료되었어요.\n이제 bitO를 사용해보세요.',
 }
 
-export default function CoupleConnect({ type }: CoupleConnectProps) {
+export function ConnectStepView({ type }: ConnectStepProps) {
   const router = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [isForward, setIsForward] = useState<boolean>(true)
   const [code, setCode] = useState<string>('')
-  const [inputData, setInputData] = useState<Record<CoupleConnectStep, string | undefined>>(
-    {} as Record<CoupleConnectStep, string | undefined>,
+  const [inputData, setInputData] = useState<Record<ConnectStep, string | undefined>>(
+    {} as Record<ConnectStep, string | undefined>,
   )
 
   const steps = CONNECT_STEP[type]
@@ -74,7 +71,7 @@ export default function CoupleConnect({ type }: CoupleConnectProps) {
       })
   }
 
-  const handleInputChange = (input: string, step: CoupleConnectStep) => {
+  const handleInputChange = (input: string, step: ConnectStep) => {
     if (input) setInputData((prev) => ({ ...prev, [step]: input }))
     else
       setInputData((prev) => {

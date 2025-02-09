@@ -1,10 +1,10 @@
 'use client'
 
-import BaseButton from '@/widgets/button/BaseButton'
+import { BaseButton } from '@/shared/ui'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-export default function ConnectPage() {
+export function ConnectView() {
   const router = useRouter()
 
   const handleCreateCoupleButtonClick = () => {

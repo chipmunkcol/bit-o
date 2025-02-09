@@ -1,3 +1,5 @@
+'use client'
+
 import { format } from 'date-fns'
 import { memo } from 'react'
 import DatePicker from 'react-datepicker'
@@ -8,7 +10,7 @@ interface DateButtonProps {
   setDate: (date: Date | null) => void
 }
 
-const DateButton = memo(({ className, date, setDate }: DateButtonProps) => {
+export const DateButton = memo(({ className, date, setDate }: DateButtonProps) => {
   return (
     <DatePicker
       selected={date ? new Date(date) : null}
@@ -23,5 +25,3 @@ const DateButton = memo(({ className, date, setDate }: DateButtonProps) => {
 })
 
 DateButton.displayName = 'DateButton'
-
-export default DateButton

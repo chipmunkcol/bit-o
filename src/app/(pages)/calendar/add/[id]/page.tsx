@@ -1,7 +1,5 @@
 'use client'
 
-import BaseButton from '@/widgets/button/BaseButton'
-import BaseHeader from '@/widgets/layout/BaseHeader'
 import AddEventTitle from './AddScheduleTitle'
 import AddEventTime from './AddScheduleTime'
 import AddEventNote from './AddScheduleNote'
@@ -17,11 +15,11 @@ import {
 import { Schedule, ScheduleResponse } from '@/entities/calendar/api/types'
 import { useEffect } from 'react'
 import useScheduleStore from '@/store/scheduleStore'
-import LoadingSpinner from '@/shared/ui/LoadingSpinner'
 import { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { compareDesc } from 'date-fns/fp'
 import Image from 'next/image'
+import { BaseButton, BaseHeader, LoadingSpinner } from '@/shared/ui'
 
 /**
  * id 있다면 : 스케쥴 수정

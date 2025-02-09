@@ -7,8 +7,8 @@ import { useQuery } from '@tanstack/react-query'
 import { ScheduleResponse } from '@/entities/calendar/api/types'
 import { getCalendarList } from '@/entities/calendar/api'
 import useScheduleStore from '@/store/scheduleStore'
-import LoadingSpinner from '@/shared/ui/LoadingSpinner'
 import CalendarPlans from './CalendarPlans'
+import { LoadingSpinner } from '@/shared/ui'
 
 export default function CalendarPage() {
   const { setSelectedDate, setSchedules, setCurrentDate, currentDate } = useScheduleStore()

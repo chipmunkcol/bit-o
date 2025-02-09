@@ -1,7 +1,7 @@
 'use client'
 import { userApi } from '@/entities/userInfo'
 import useUserInfoStore from '@/store/userInfoStore'
-import BaseButton from '@/widgets/button/BaseButton'
+import BaseButton from '@/shared/ui/button/BaseButton'
 
 import Image from 'next/image'
 import Link from 'next/link'

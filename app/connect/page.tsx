@@ -1,5 +1,5 @@
-import { ConnectView } from '@/views/connect'
+import { ConnectPage } from '@/views/connect'
 
-export default function ConnectPage() {
-  return <ConnectView />
+export default function Page() {
+  return <ConnectPage />
 }

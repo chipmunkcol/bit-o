@@ -34,7 +34,7 @@ const CONNECT_STEP_INSTRUCTION: Record<ConnectStep, string> = {
   complete: '커플 연결이 완료되었어요.\n이제 bitO를 사용해보세요.',
 }
 
-export function ConnectStepView({ type }: ConnectStepProps) {
+export function ConnectStepPage({ type }: ConnectStepProps) {
   const router = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [isForward, setIsForward] = useState<boolean>(true)

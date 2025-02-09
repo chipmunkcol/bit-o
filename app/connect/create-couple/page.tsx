@@ -1,5 +1,5 @@
-import { ConnectStepView } from '@/views/connect'
+import { ConnectStepPage } from '@/views/connect'
 
-export default function CreateCouplePage() {
-  return <ConnectStepView type="create" />
+export default function Page() {
+  return <ConnectStepPage type="create" />
 }

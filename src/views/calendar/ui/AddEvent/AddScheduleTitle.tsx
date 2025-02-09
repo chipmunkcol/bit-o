@@ -1,4 +1,4 @@
-import useScheduleStore from '@/store/scheduleStore'
+import { useScheduleStore } from '@/entities/calendar'
 
 interface AddEventTitleProps {
   placeholder: string

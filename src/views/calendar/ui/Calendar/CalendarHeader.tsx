@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { addMonths, addYears } from 'date-fns'
-import useScheduleStore from '@/store/scheduleStore'
+import { useScheduleStore } from '@/entities/calendar'
 
 const CalendarHeader = () => {
   const { currentDate, setCurrentDate } = useScheduleStore()

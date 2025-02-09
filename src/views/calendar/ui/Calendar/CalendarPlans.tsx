@@ -1,4 +1,6 @@
-import useScheduleStore from '@/store/scheduleStore'
+'use client'
+
+import { useScheduleStore } from '@/entities/calendar'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'

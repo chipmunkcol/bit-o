@@ -1,7 +1,7 @@
-import useScheduleStore from '@/store/scheduleStore'
-import { dayOfTheWeek, generateDate } from '@/utils/calendar'
 import { isEqual } from 'date-fns'
 import ScheduleList from './ScheduleList'
+import { DAY_OF_THE_WEEK, generateDate } from '@/features/calendar'
+import { useScheduleStore } from '@/entities/calendar'
 
 const CalendarBody = () => {
   const { selectedDate, setSelectedDate, currentDate } = useScheduleStore()
@@ -35,7 +35,7 @@ const CalendarBody = () => {
   return (
     <div className="flex flex-col  w-full text-[0.75rem]">
       <div className="flex w-full h-[4vh] items-center">
-        {dayOfTheWeek.map((item, index) => {
+        {DAY_OF_THE_WEEK.map((item, index) => {
           return (
             <div key={index} className="flex-1 text-center text-gray-400">
               <span>{item}</span>

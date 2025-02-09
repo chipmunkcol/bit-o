@@ -1,16 +1,16 @@
 'use client'
 
 import { useEffect } from 'react'
-import CalendarHeader from './CalendarHeader'
-import CalendarBody from './CalendarBody'
 import { useQuery } from '@tanstack/react-query'
 import { ScheduleResponse } from '@/entities/calendar/api/types'
 import { getCalendarList } from '@/entities/calendar/api'
-import useScheduleStore from '@/store/scheduleStore'
-import CalendarPlans from './CalendarPlans'
+import { useScheduleStore } from '@/entities/calendar'
 import { LoadingSpinner } from '@/shared/ui'
+import CalendarHeader from './CalendarHeader'
+import CalendarBody from './CalendarBody'
+import CalendarPlans from './CalendarPlans'
 
-export default function CalendarPage() {
+export function CalendarPage() {
   const { setSelectedDate, setSchedules, setCurrentDate, currentDate } = useScheduleStore()
 
   const {

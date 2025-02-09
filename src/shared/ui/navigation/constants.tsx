@@ -1,4 +1,4 @@
-export const BottomNavMenu = [
+export const BOTTOM_NAV_MENU = [
   {
     id: 1,
     name: '디데이',

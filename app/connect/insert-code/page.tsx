@@ -1,7 +1,5 @@
-'use client'
-
-import { ConnectStepView } from '@/views/connect'
+import { ConnectStepPage } from '@/views/connect'
 
 export default function InsertCodePage() {
-  return <ConnectStepView type="code" />
+  return <ConnectStepPage type="code" />
 }

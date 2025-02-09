@@ -1,4 +1,4 @@
-import useScheduleStore from '@/store/scheduleStore'
+import { useScheduleStore } from '@/entities/calendar'
 import { isWithinInterval, startOfDay } from 'date-fns'
 import { useMemo } from 'react'
 

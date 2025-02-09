@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { BottomNavMenu } from '@/utils/data'
 import { useEffect, useState } from 'react'
+import { BOTTOM_NAV_MENU } from './constants'
 
 export const NavigationBar = () => {
   const [menuId, setMenuId] = useState<number>()
@@ -22,7 +22,7 @@ export const NavigationBar = () => {
   return (
     <div className="sticky bottom-0 left-0 w-full h-[4rem] px-[8px] pt-[8px] shadow-2xl bg-white">
       <ul className="flex flex-row ">
-        {BottomNavMenu.map((menu) => {
+        {BOTTOM_NAV_MENU.map((menu) => {
           return (
             <li key={menu.id} className="flex flex-1 justify-center items-center">
               <Link href={menu.path} onClick={() => handleClickButton(menu.id)}>

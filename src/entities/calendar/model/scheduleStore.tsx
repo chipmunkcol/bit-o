@@ -27,7 +27,7 @@ interface IScheduleStore {
   deleteScheduleList: ({ scheduleId }: { scheduleId: number }) => void
 }
 
-const useScheduleStore = create<IScheduleStore>((set) => ({
+export const useScheduleStore = create<IScheduleStore>((set) => ({
   title: null,
   note: null,
   date: null,
@@ -74,5 +74,3 @@ const useScheduleStore = create<IScheduleStore>((set) => ({
       return { schedules: updatedList }
     }),
 }))
-
-export default useScheduleStore

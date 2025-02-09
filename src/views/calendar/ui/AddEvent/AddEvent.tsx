@@ -3,7 +3,6 @@
 import AddEventTitle from './AddScheduleTitle'
 import AddEventTime from './AddScheduleTime'
 import AddEventNote from './AddScheduleNote'
-import AddEventLocation from './AddScheduleLocation'
 import { useParams, useRouter } from 'next/navigation'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
@@ -14,18 +13,19 @@ import {
 } from '@/entities/calendar/api'
 import { Schedule, ScheduleResponse } from '@/entities/calendar/api/types'
 import { useEffect } from 'react'
-import useScheduleStore from '@/store/scheduleStore'
+import { useScheduleStore } from '@/entities/calendar'
 import { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { compareDesc } from 'date-fns/fp'
 import Image from 'next/image'
 import { BaseButton, BaseHeader, LoadingSpinner } from '@/shared/ui'
+import AddEventLocation from './AddScheduleLocation'
 
 /**
  * id 있다면 : 스케쥴 수정
  * id 없다면 : 스케쥴 생성
  */
-export default function AddEventPage() {
+export function AddEventPage() {
   const {
     title,
     note,
